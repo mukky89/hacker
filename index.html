@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="sk">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>🟢 Hackerské nástroje pre deti</title>
+  <meta name="description" content="Zábavné a bezpečné hackerské nástroje pre deti – tajné šifry, Morseovka, binárny prekladač, generátor hesiel a Matrix efekt." />
+  <link rel="stylesheet" href="style.css" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>👾</text></svg>" />
+</head>
+<body>
+  <canvas id="matrix"></canvas>
+
+  <header class="hero">
+    <h1 class="glitch" data-text="HACKERSKÉ NÁSTROJE">HACKERSKÉ NÁSTROJE</h1>
+    <p class="subtitle">Tajná základňa pre malých hackerov 🕵️‍♂️</p>
+    <p class="hint">Všetko je bezpečné, zábavné a hlavne sa pri tom veľa naučíš!</p>
+  </header>
+
+  <nav class="tabs" id="tabs">
+    <button class="tab active" data-tool="terminal">💻 Terminál</button>
+    <button class="tab" data-tool="cipher">🔐 Tajná šifra</button>
+    <button class="tab" data-tool="binary">🤖 Binárny kód</button>
+    <button class="tab" data-tool="morse">📡 Morseovka</button>
+    <button class="tab" data-tool="password">🔑 Heslo</button>
+    <button class="tab" data-tool="quiz">🧠 Kvíz</button>
+  </nav>
+
+  <main>
+    <!-- TERMINÁL -->
+    <section class="tool active" id="terminal">
+      <h2>💻 Hackerský terminál</h2>
+      <p class="desc">Píš príkazy ako ozajstný hacker! Skús napísať <code>help</code> a stlač Enter.</p>
+      <div class="terminal" id="termOutput">
+        <div class="line">Vitaj v tajnom termináli! 👾</div>
+        <div class="line">Napíš <span class="cmd">help</span> pre zoznam príkazov.</div>
+      </div>
+      <div class="term-input-row">
+        <span class="prompt">hacker@deti:~$</span>
+        <input id="termInput" type="text" autocomplete="off" spellcheck="false" placeholder="napíš príkaz..." />
+      </div>
+    </section>
+
+    <!-- ŠIFRA -->
+    <section class="tool" id="cipher">
+      <h2>🔐 Tajná Caesarova šifra</h2>
+      <p class="desc">Posuň každé písmeno v abecede a vznikne tajná správa, ktorú prečíta len ten, kto pozná kľúč!</p>
+      <label>Tvoja správa:</label>
+      <textarea id="cipherText" placeholder="Napíš tajnú správu...">Ahoj kamarat</textarea>
+      <div class="control-row">
+        <label>Posun (kľúč): <strong id="shiftVal">3</strong></label>
+        <input type="range" id="cipherShift" min="1" max="25" value="3" />
+      </div>
+      <div class="btn-row">
+        <button id="encodeBtn">🔒 Zašifrovať</button>
+        <button id="decodeBtn">🔓 Dešifrovať</button>
+      </div>
+      <div class="output" id="cipherOut">Výsledok sa zobrazí tu...</div>
+    </section>
+
+    <!-- BINÁRNY -->
+    <section class="tool" id="binary">
+      <h2>🤖 Binárny prekladač</h2>
+      <p class="desc">Počítače rozumejú len jednotkám a nulám. Prelož text do reči robotov a späť!</p>
+      <label>Text:</label>
+      <textarea id="binText" placeholder="Napíš text...">Hacker</textarea>
+      <div class="btn-row">
+        <button id="toBinBtn">➡️ Na binárny kód</button>
+        <button id="fromBinBtn">⬅️ Späť na text</button>
+      </div>
+      <div class="output" id="binOut">01001000 ...</div>
+    </section>
+
+    <!-- MORSE -->
+    <section class="tool" id="morse">
+      <h2>📡 Morseovka</h2>
+      <p class="desc">Tajný jazyk bodiek a čiarok, ktorý hackeri a špióni používali už pred 150 rokmi!</p>
+      <label>Text:</label>
+      <textarea id="morseText" placeholder="Napíš text...">SOS</textarea>
+      <div class="btn-row">
+        <button id="toMorseBtn">➡️ Na Morseovku</button>
+        <button id="fromMorseBtn">⬅️ Späť na text</button>
+        <button id="playMorseBtn">🔊 Prehrať zvuk</button>
+      </div>
+      <div class="output" id="morseOut">... --- ...</div>
+    </section>
+
+    <!-- HESLO -->
+    <section class="tool" id="password">
+      <h2>🔑 Generátor silných hesiel</h2>
+      <p class="desc">Silné heslo je tvoj najlepší štít. Vygeneruj si také, ktoré nikto neuhádne!</p>
+      <div class="control-row">
+        <label>Dĺžka: <strong id="lenVal">12</strong></label>
+        <input type="range" id="pwLen" min="6" max="32" value="12" />
+      </div>
+      <div class="checks">
+        <label><input type="checkbox" id="pwUpper" checked /> VEĽKÉ</label>
+        <label><input type="checkbox" id="pwNums" checked /> Čísla 123</label>
+        <label><input type="checkbox" id="pwSyms" checked /> Znaky !@#</label>
+      </div>
+      <button id="genPwBtn">🎲 Vygenerovať heslo</button>
+      <div class="output password-out" id="pwOut">klikni na tlačidlo 👆</div>
+      <div class="strength" id="pwStrength"></div>
+    </section>
+
+    <!-- KVÍZ -->
+    <section class="tool" id="quiz">
+      <h2>🧠 Kvíz o bezpečnosti</h2>
+      <p class="desc">Otestuj sa! Skutočný hacker vie, ako sa chrániť na internete.</p>
+      <div id="quizBox"></div>
+      <div class="output" id="quizScore"></div>
+    </section>
+  </main>
+
+  <footer>
+    <p>👾 Vytvorené pre malých hackerov · Uč sa, experimentuj a buď zvedavý!</p>
+    <p class="safe">🛡️ Pamätaj: pravý hacker je zvedavý a pomáha, nikdy neubližuje.</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

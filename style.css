@@ -175,6 +175,22 @@ button:active { transform: translateY(0); }
 #termInput { flex: 1; border: none; border-bottom: 1px solid var(--border); border-radius: 0; }
 code { background: #000d03; padding: 0.1rem 0.4rem; border-radius: 4px; color: #ffe600; }
 
+/* HACKER TYPER */
+.typer-screen {
+  background: #000;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 1rem;
+  height: 300px;
+  overflow-y: auto;
+  white-space: pre-wrap;
+  word-break: break-word;
+  font-size: 0.9rem;
+  color: var(--green);
+  cursor: text;
+}
+.typer-screen:focus { outline: none; border-color: var(--green); box-shadow: 0 0 12px var(--green); }
+
 /* QUIZ */
 .quiz-q { font-size: 1.1rem; margin-bottom: 1rem; color: #fff; }
 .quiz-opt {

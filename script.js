@@ -343,6 +343,173 @@ function answerQuiz(btn, chosen, correct) {
 }
 renderQuiz();
 
+// ---------- 7) HACKER TYPER ----------
+const typerScreen = document.getElementById('typerScreen');
+const HACKER_CODE = `function breakFirewall(target){
+  const keys = crypto.generateKeys(2048);
+  for (let i = 0; i < 0xFF; i++){
+    socket.connect(target, port=8080 + i);
+    if (scanPort(i).open){ inject(payload[i % 16]); }
+  }
+  return decrypt(buffer, keys.private);
+}
+class Bot extends Node {
+  constructor(){ super(); this.status = "ACTIVE"; }
+  async deploy(){ await this.ping("10.0.0." + rand()); }
+}
+const matrix = [...Array(256)].map((_, i) => i ^ 0xAB);
+console.log("[OK] system online", matrix.length, "nodes");
+`;
+let typerPos = 0;
+function typerHandle(e) {
+  if (e.key === 'Escape') { typerScreen.textContent = ''; typerPos = 0; return; }
+  if (e.key.length > 1 && e.key !== 'Enter' && e.key !== ' ') return; // ignoruj Shift, Ctrl...
+  e.preventDefault();
+  if (typerScreen.textContent.startsWith('▶')) typerScreen.textContent = '';
+  // pri každom stlačení pridaj kúsok pripraveného kódu
+  for (let i = 0; i < 4; i++) {
+    typerScreen.textContent += HACKER_CODE[typerPos];
+    typerPos = (typerPos + 1) % HACKER_CODE.length;
+  }
+  typerScreen.scrollTop = typerScreen.scrollHeight;
+}
+typerScreen.addEventListener('keydown', typerHandle);
+typerScreen.addEventListener('click', () => typerScreen.focus());
+
+// ---------- 8) LEETSPEAK ----------
+const LEET = { a: '4', e: '3', i: '1', o: '0', s: '5', t: '7', l: '1', b: '8', g: '9' };
+const LEET_REV = { '4': 'a', '3': 'e', '1': 'i', '0': 'o', '5': 's', '7': 't', '8': 'b', '9': 'g' };
+const leetText = document.getElementById('leetText');
+const leetOut = document.getElementById('leetOut');
+
+document.getElementById('toLeetBtn').addEventListener('click', () => {
+  leetOut.textContent = leetText.value.toLowerCase().replace(/[aeiostlbg]/g, c => LEET[c] || c);
+});
+document.getElementById('fromLeetBtn').addEventListener('click', () => {
+  leetOut.textContent = leetText.value.replace(/[0134578]/g, c => LEET_REV[c] || c);
+});
+
+// ---------- 9) GENERÁTOR PREZÝVKY ----------
+const NICK_ADJ = ['Tieňový', 'Kybernetický', 'Tajný', 'Zelený', 'Bleskový', 'Digitálny', 'Neviditeľný', 'Nočný', 'Kvantový', 'Ľadový'];
+const NICK_NOUN = ['Drak', 'Vlk', 'Kód', 'Fantóm', 'Robot', 'Sokol', 'Pixel', 'Bajt', 'Tiger', 'Ninja'];
+document.getElementById('genNickBtn').addEventListener('click', () => {
+  const num = Math.floor(Math.random() * 1000);
+  const nick = randomItem(NICK_ADJ) + randomItem(NICK_NOUN) + '_' + String(num).padStart(3, '0');
+  document.getElementById('nickOut').textContent = '👾 ' + nick;
+});
+
+// ---------- 10) TEST SILY HESLA ----------
+const crackInput = document.getElementById('crackInput');
+const crackOut = document.getElementById('crackOut');
+const crackBar = document.getElementById('crackBar');
+
+function estimateCrack(pw) {
+  if (!pw) return { text: 'Začni písať... ⌨️', label: '', color: '#00cc52' };
+  let pool = 0;
+  if (/[a-z]/.test(pw)) pool += 26;
+  if (/[A-Z]/.test(pw)) pool += 26;
+  if (/[0-9]/.test(pw)) pool += 10;
+  if (/[^a-zA-Z0-9]/.test(pw)) pool += 30;
+  const combos = Math.pow(pool, pw.length);
+  const guessesPerSec = 1e9; // moderný počítač ~ miliarda pokusov/s
+  const seconds = combos / guessesPerSec;
+  return { text: '⏱️ Prelomenie by trvalo približne: ' + humanTime(seconds), ...verdict(seconds) };
+}
+
+function humanTime(s) {
+  if (s < 1) return 'menej než sekundu 😱';
+  const units = [
+    ['rok', 31557600], ['deň', 86400], ['hodinu', 3600], ['minútu', 60], ['sekundu', 1]
+  ];
+  for (const [name, val] of units) {
+    if (s >= val) {
+      const n = Math.floor(s / val);
+      if (n > 1e12) return 'miliardy rokov 🔒';
+      return n.toLocaleString('sk-SK') + ' ' + plural(n, name);
+    }
+  }
+  return 'okamih';
+}
+function plural(n, base) {
+  const map = { 'rok': ['rok', 'roky', 'rokov'], 'deň': ['deň', 'dni', 'dní'],
+    'hodinu': ['hodinu', 'hodiny', 'hodín'], 'minútu': ['minútu', 'minúty', 'minút'],
+    'sekundu': ['sekundu', 'sekundy', 'sekúnd'] };
+  const f = map[base];
+  if (n === 1) return f[0];
+  if (n >= 2 && n <= 4) return f[1];
+  return f[2];
+}
+function verdict(seconds) {
+  if (seconds < 60) return { label: '🟠 Slabé heslo! Pridaj viac znakov.', color: '#ff9900' };
+  if (seconds < 31557600) return { label: '🟡 Dalo by sa lepšie.', color: '#ffe600' };
+  return { label: '🟢 Silné heslo! Super práca.', color: '#00ff66' };
+}
+function updateCrack() {
+  const r = estimateCrack(crackInput.value);
+  crackOut.textContent = r.text;
+  crackBar.textContent = r.label;
+  crackBar.style.color = r.color;
+}
+crackInput.addEventListener('input', updateCrack);
+updateCrack();
+
+// ---------- 11) EMOJI ŠIFRA ----------
+const EMOJI_SET = ['😀','😎','👾','🚀','🐱','🌟','🍕','🎸','🐉','🔥','🌈','⚡','🦄','🍀','🎈','🐢','🌊','🍎','🎁','🐙','🌙','🦊','🍩','🛸','🎯','🐝','🌵','🍔'];
+const emojiText = document.getElementById('emojiText');
+const emojiOut = document.getElementById('emojiOut');
+
+document.getElementById('toEmojiBtn').addEventListener('click', () => {
+  const out = [...emojiText.value].map(c => {
+    const code = c.charCodeAt(0);
+    // každý znak na 2 emoji (vysoká a nízka číslica v 28-kovej sústave)
+    return EMOJI_SET[Math.floor(code / 28) % 28] + EMOJI_SET[code % 28];
+  }).join(' ');
+  emojiOut.textContent = out || '(prázdne)';
+});
+document.getElementById('fromEmojiBtn').addEventListener('click', () => {
+  try {
+    const pairs = emojiText.value.trim().split(/\s+/);
+    const text = pairs.map(p => {
+      const chars = [...p];
+      const hi = EMOJI_SET.indexOf(chars[0]);
+      const lo = EMOJI_SET.indexOf(chars[1]);
+      if (hi < 0 || lo < 0) return '';
+      return String.fromCharCode(hi * 28 + lo);
+    }).join('');
+    emojiOut.textContent = text || '⚠️ To nevyzerá ako emoji šifra.';
+  } catch {
+    emojiOut.textContent = '⚠️ To nevyzerá ako emoji šifra.';
+  }
+});
+
+// ---------- 12) SIEŤOVÝ SKENER (naoko) ----------
+const scanOut = document.getElementById('scanOut');
+document.getElementById('scanBtn').addEventListener('click', () => {
+  scanOut.innerHTML = '';
+  const devices = [
+    'Router (brána do internetu)', 'Mobil v obývačke', 'Smart TV',
+    'Notebook', 'Tlačiareň', 'Herná konzola', 'Chladnička 🧊', 'Tablet'
+  ];
+  const lines = ['🔍 Skenujem sieť 192.168.1.0 ...', ''];
+  let i = 0;
+  const print = (t) => { const d = document.createElement('div'); d.className = 'line'; d.textContent = t; scanOut.appendChild(d); scanOut.scrollTop = scanOut.scrollHeight; };
+  const t = setInterval(() => {
+    if (i < lines.length) { print(lines[i++]); return; }
+    const idx = i - lines.length;
+    if (idx < devices.length) {
+      const ip = '192.168.1.' + (10 + idx);
+      print('✓ ' + ip.padEnd(15) + ' → ' + devices[idx]);
+      i++;
+    } else {
+      clearInterval(t);
+      print('');
+      print('Našiel som ' + devices.length + ' zariadení! 🎉');
+      print('💡 IP adresa je ako adresa domu – hovorí, kam poslať dáta.');
+      print('(Toto sú len vymyslené ukážkové zariadenia.)');
+    }
+  }, 350);
+});
+
 // ---------- POMOCNÉ ----------
 function randomItem(arr) { return arr[Math.floor(Math.random() * arr.length)]; }
 

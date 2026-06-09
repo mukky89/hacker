@@ -15,6 +15,12 @@ a pritom sa učia o programovaní, šifrách a bezpečnosti na internete. 🟢
 | 🤖 **Binárny kód** | Preloží text na jednotky a nuly a späť | Ako počítače ukladajú text |
 | 📡 **Morseovka** | Preklad textu na bodky/čiarky + zvuk | Historický spôsob komunikácie |
 | 🔑 **Generátor hesiel** | Vytvorí silné náhodné heslo | Prečo sú silné heslá dôležité |
+| ⌨️ **Hacker Typer** | Búchaj do klávesov a „píš" kód ako vo filme | Zábava + ako vyzerá kód |
+| 💬 **Leetspeak (1337)** | Prevod textu na h4ck3r reč a späť | Hra so znakmi a substitúciou |
+| 🦸 **Prezývka** | Vygeneruje cool hackerskú prezývku | Náhodné kombinácie |
+| ⏱️ **Test hesla** | Odhadne, ako dlho by trvalo prelomiť heslo | Prečo na dĺžke a znakoch záleží |
+| 😀 **Emoji šifra** | Zašifruje text do emoji a späť | Kódovanie znakov |
+| 🔍 **Sieťový skener** | Naoko „naskenuje" sieť a vysvetlí IP adresy | Čo je IP adresa a sieť |
 | 🧠 **Kvíz** | Otázky o bezpečnosti na internete | Bezpečné správanie online |
 
 Plus efektný **Matrix dážď** v pozadí a glitch animácie. 🟩

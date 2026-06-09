@@ -23,6 +23,12 @@
     <button class="tab" data-tool="binary">🤖 Binárny kód</button>
     <button class="tab" data-tool="morse">📡 Morseovka</button>
     <button class="tab" data-tool="password">🔑 Heslo</button>
+    <button class="tab" data-tool="typer">⌨️ Hacker Typer</button>
+    <button class="tab" data-tool="leet">💬 Leetspeak</button>
+    <button class="tab" data-tool="nick">🦸 Prezývka</button>
+    <button class="tab" data-tool="crack">⏱️ Test hesla</button>
+    <button class="tab" data-tool="emoji">😀 Emoji šifra</button>
+    <button class="tab" data-tool="scan">🔍 Sieťový skener</button>
     <button class="tab" data-tool="quiz">🧠 Kvíz</button>
   </nav>
 
@@ -101,6 +107,66 @@
       <button id="genPwBtn">🎲 Vygenerovať heslo</button>
       <div class="output password-out" id="pwOut">klikni na tlačidlo 👆</div>
       <div class="strength" id="pwStrength"></div>
+    </section>
+
+    <!-- HACKER TYPER -->
+    <section class="tool" id="typer">
+      <h2>⌨️ Hacker Typer</h2>
+      <p class="desc">Klikni do čierneho okna a búchaj do akýchkoľvek klávesov. Vyzeráš, akoby si písal tajný kód rýchlosťou blesku! (V skutočnosti len prehrávame pripravený text.) 😎</p>
+      <div class="typer-screen" id="typerScreen" tabindex="0">▶ Klikni sem a začni búchať do klávesnice...</div>
+      <p class="hint">Tip: stlač <code>Esc</code> na vyčistenie.</p>
+    </section>
+
+    <!-- LEETSPEAK -->
+    <section class="tool" id="leet">
+      <h2>💬 Leetspeak (1337)</h2>
+      <p class="desc">Tajný „hackerský" jazyk, kde sa písmená nahrádzajú číslami a znakmi. Z „hacker" sa stane „h4ck3r"!</p>
+      <label>Text:</label>
+      <textarea id="leetText" placeholder="Napíš text...">Som super hacker</textarea>
+      <div class="btn-row">
+        <button id="toLeetBtn">➡️ Na leetspeak</button>
+        <button id="fromLeetBtn">⬅️ Späť na text</button>
+      </div>
+      <div class="output" id="leetOut">5 0 m   5 u p 3 r ...</div>
+    </section>
+
+    <!-- PREZÝVKA -->
+    <section class="tool" id="nick">
+      <h2>🦸 Generátor hackerskej prezývky</h2>
+      <p class="desc">Každý hacker potrebuje cool tajnú prezývku! Klikni a zisti tú svoju.</p>
+      <button id="genNickBtn">🎲 Vygenerovať prezývku</button>
+      <div class="output password-out" id="nickOut">klikni na tlačidlo 👆</div>
+    </section>
+
+    <!-- TEST HESLA -->
+    <section class="tool" id="crack">
+      <h2>⏱️ Ako rýchlo prelomia tvoje heslo?</h2>
+      <p class="desc">Napíš heslo (vymyslené, nie ozajstné!) a zisti, ako dlho by trvalo počítaču ho uhádnuť.</p>
+      <label>Heslo na otestovanie:</label>
+      <input type="text" id="crackInput" placeholder="napríklad: pes123" value="pes123" />
+      <div class="output" id="crackOut">Začni písať... ⌨️</div>
+      <div class="strength" id="crackBar"></div>
+    </section>
+
+    <!-- EMOJI ŠIFRA -->
+    <section class="tool" id="emoji">
+      <h2>😀 Emoji šifra</h2>
+      <p class="desc">Premeň svoju správu na reťazec emoji! Prečíta ju len ten, kto má tento nástroj.</p>
+      <label>Text:</label>
+      <textarea id="emojiText" placeholder="Napíš text...">Ahoj</textarea>
+      <div class="btn-row">
+        <button id="toEmojiBtn">➡️ Na emoji</button>
+        <button id="fromEmojiBtn">⬅️ Späť na text</button>
+      </div>
+      <div class="output" id="emojiOut" style="font-size:1.4rem">😀 😀 😀</div>
+    </section>
+
+    <!-- SIEŤOVÝ SKENER -->
+    <section class="tool" id="scan">
+      <h2>🔍 Sieťový skener</h2>
+      <p class="desc">Hackeri skúmajú siete. Tento (naoko!) skener ti ukáže vymyslené „zariadenia" a vysvetlí, čo je IP adresa.</p>
+      <button id="scanBtn">📡 Spustiť skenovanie</button>
+      <div class="terminal" id="scanOut" style="height:240px;margin-top:1rem">Skener pripravený. Klikni na tlačidlo. 🛰️</div>
     </section>
 
     <!-- KVÍZ -->
